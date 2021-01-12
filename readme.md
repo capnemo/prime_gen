@@ -1,10 +1,11 @@
 # Fast prime number generator.
 
 prime_gen is a utility to generate primes. It is based on the axiom that for any prime p > 6, p = 6k+1 or 6k-1.
-### Fetch and build the software.
+### Build the software.
 git clone the project to your machine. Run make from the root directory.
 ### Prerequisites
-g++ ver 9.0
+Any linux/unix.
+g++ ver 9.0 or above
 build-essentials
 ### Running the software
 To run the software, in the git directory,
