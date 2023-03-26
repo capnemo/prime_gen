@@ -1,0 +1,29 @@
+chandra@whale:prime_gen $ time ./prime_gen 10 -f p10
+Generating first primes
+Done with first primes
+8000/8000
+total number of primes is 455052511
+
+real	91m58.240s
+user	683m9.389s
+sys	0m55.989s
+------------------------------------------------------
+chandra@whale:prime_gen $ time ./prime_gen 5 -f p5
+Generating first primes
+Done with first primes
+total number of primes is 9590
+
+real	0m0.053s
+user	0m0.012s
+sys	0m0.042s
+-----------------------------------------------------
+chandra@whale:prime_gen $ time ./prime_gen 9 -f p9.2
+Generating first primes
+Done with first primes
+800/800
+total number of primes is 50847534
+
+real	3m43.991s
+user	28m14.297s
+sys	0m2.335s
+

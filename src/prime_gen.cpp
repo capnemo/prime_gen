@@ -31,11 +31,13 @@ int main(int argc, char *argv[])
 
     bool isMax = false;
     unsigned int exp;
-    if (std::string(argv[1]) == std::string("max"))
+    if (std::string(argv[1]) == std::string("max")) {
         isMax = true;
-    else 
+        exp = 19;
+    } else 
         exp = std::strtoull(argv[1], nullptr, 10);
 
+    //Handke the case of max!
     if ((exp < 1) || (exp > 19)) {
         usage(argv[0]);
         return -1;
@@ -52,8 +54,11 @@ int main(int argc, char *argv[])
     }
 
     int p_exp = exp;
-    if (exp > 7) 
+    if (exp > 7)  {
         p_exp = exp/2.0 + 0.5;
+        if (isMax == true)
+            p_exp = std::numeric_limits<uint32_t>::max();
+    }
 
     ulong max_prime = powl(10, p_exp);
     ulong_vec prime_seeds;
@@ -61,6 +66,7 @@ int main(int argc, char *argv[])
     primes::generate_first_primes(max_prime, prime_seeds);
     std::cout << "Done with first primes" << std::endl;
 
+    //Removing 2 and 3 from prime_seeds causes errors. TBI
     if (output_file != "")
         file_writer::write_file(prime_seeds, output_file);
 
