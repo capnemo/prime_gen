@@ -26,13 +26,17 @@ class primes {
            file_writer* wr = nullptr):
            th_id(id), ranges_source(d_q), prime_factors(primes), writer(wr) {}
 
-    void static generate_first_primes(ulong limit, ulong_vec& first_primes);
+    static void generate_first_primes(ulong limit, ulong_vec& first_primes);
     void fetch_ranges();
     ulong get_prime_count();
 
     private:
     bool is_prime(ulong num);
     void fill_primes(ulong range_begin, ulong range_end, ulong_vec* plist);
+    static bool find_primes_from_seeds(uint64_t num, 
+                                               ulong_vec& first_primes);
+
+
 
     int th_id;
     queue_dispatch& ranges_source;

@@ -10,4 +10,4 @@ prime_gen:$(OBJ)
 	g++ -Iincl -Ofast -c $*.cpp  -o $*.o
 
 clean:
-	rm -f prime_gen *.o
+	rm -f prime_gen *.o src/*.o

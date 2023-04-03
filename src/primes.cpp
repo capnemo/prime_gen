@@ -82,6 +82,20 @@ bool primes::is_prime(ulong num)
     }
     return true;
 }
+
+bool primes::find_primes_from_seeds(uint64_t num, ulong_vec& first_primes)
+{
+    uint64_t limit = sqrt(num);
+    uint64_t n = 2; //Ignore 2 and 3.
+    
+    while (first_primes[n] <= limit) {
+        if (num % first_primes[n] == 0)
+            return false;
+        n++;
+    }
+    return true;
+}
+
 /*
  * Calculates prime numbers upto a limit.
  *  in     @limit
@@ -89,26 +103,18 @@ bool primes::is_prime(ulong num)
  */
 void primes::generate_first_primes(ulong limit, ulong_vec& first_primes)
 {
-
     first_primes = ulong_vec({2,3,5,7});
-    std::set<int> mods({0,2,3,4});
-    for (int i = 10; i < limit; i++)  {
-        int k = i % 6;
-        if (mods.find(k) != mods.end())
-            continue;
-        int j = 0;
-        bool is_prime = true;
-        int prime_limit = sqrt(i) + 0.5;
-        while (first_primes[j] <= prime_limit) {
-            if (i % first_primes[j++] == 0) {
-                is_prime = false;
-                break;
-            }
-            if (j >= first_primes.size())
-                break;
-        }
-        if (is_prime == true) 
-            first_primes.push_back(i);
+    uint64_t p1 = 11;
+    uint64_t p2 = 13;
+    while (p2 <= limit) {
+        if (find_primes_from_seeds(p1, first_primes) == true) 
+            first_primes.push_back(p1);
+
+        if (find_primes_from_seeds(p2, first_primes) == true) 
+            first_primes.push_back(p2);
+
+        p1 += 6;
+        p2 += 6;
     }
 }
 
