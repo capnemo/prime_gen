@@ -9,12 +9,15 @@
 #include <mutex>
 #include <queue>
 #include <algorithm>
-#include <limits>
+#include <climits>
 
 #include "primes.h"
 #include "queue_dispatch.h"
 #include "file_writer.h"
 
+using pair_64 = std::pair<uint64_t, uint64_t>;
+
+void handle_limit_arg(const char* limit, pair_64& prange);
 void usage(const char* prog_name)
 {
     std::cout << prog_name << " <exponent> " << "[-f <output file name>]" 
@@ -29,20 +32,6 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    bool isMax = false;
-    unsigned int exp;
-    if (std::string(argv[1]) == std::string("max")) {
-        isMax = true;
-        exp = 19;
-    } else 
-        exp = std::strtoull(argv[1], nullptr, 10);
-
-    //Handke the case of max!
-    if ((exp < 1) || (exp > 19)) {
-        usage(argv[0]);
-        return -1;
-    }
-
     std::string output_file = "";
     if (argc == 4) {
         if (std::string(argv[2]) == std::string("-f")) {
@@ -53,34 +42,28 @@ int main(int argc, char *argv[])
         }
     }
 
-    int p_exp = exp;
-    if (exp > 7)  {
-        p_exp = exp/2.0 + 0.5;
-        if (isMax == true)
-            p_exp = std::numeric_limits<uint32_t>::max();
+    pair_64 range_limits;
+    handle_limit_arg(argv[1], range_limits);
+    if ((range_limits.first == 0) && (range_limits.second == 0)) {
+        usage(argv[0]);
+        return -1;
     }
-
-    ulong max_prime = powl(10, p_exp);
+        
     ulong_vec prime_seeds;
     std::cout << "Generating first primes" << std::endl;
-    primes::generate_first_primes(max_prime, prime_seeds);
+    primes::generate_first_primes(range_limits.first, prime_seeds);
     std::cout << "Done with first primes" << std::endl;
 
-    //Removing 2 and 3 from prime_seeds causes errors. TBI
     if (output_file != "")
         file_writer::write_file(prime_seeds, output_file);
 
-    if (exp == p_exp) {
+    if (range_limits.second == 0) {
         std::cout << "total number of primes is " << prime_seeds.size() <<
         std::endl;
         return 0;
     }
 
-    ulong prime_factor_limit = max_prime;
-    max_prime = (isMax == true) ? std::numeric_limits<uint64_t>::max()
-                                  :powl(10, exp);
-
-    queue_dispatch range_q(prime_factor_limit, max_prime);
+    queue_dispatch range_q(range_limits.first, range_limits.second);
     range_q.fill_queue();
     file_writer *fw = nullptr;
     if (output_file != "") {
@@ -114,4 +97,30 @@ int main(int argc, char *argv[])
     }
         
     std::cout << "total number of primes is " << total << std::endl;
+}
+
+void handle_limit_arg(const char* limit, pair_64& prange)
+{
+    prange.first = 0;
+    prange.second = 0;
+    if (std::string(limit) == std::string("max")) {
+        prange.first = powl(10, 10);
+        prange.second = std::numeric_limits<uint64_t>::max();
+        return;
+    } 
+
+    uint64_t exp = strtoul(limit, nullptr, 10);
+    if (exp != ULLONG_MAX) {
+        if (exp <= 8) {
+            prange.first = powl(10, exp);
+            return;
+        }
+
+        if (exp <= 19) {
+            prange.first = powl(10, exp/2 + 0.5);
+            prange.second = powl(10, exp);
+        }
+    }
+
+    return;
 }
