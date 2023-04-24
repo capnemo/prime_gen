@@ -40,26 +40,34 @@ void primes::fetch_ranges()
  */
 void primes::fill_primes(ulong range_begin, ulong range_end, ulong_vec* plist)
 {
-    ulong i = range_begin;
-    while ((i <= range_end) && (i % 6 != 0)) {
-        if (is_prime(i) == true)
-            plist->push_back(i);
-        i++;
+    ulong p1,p2;
+    if (((range_begin - 1) % 6) == 0) {
+        if (is_prime(range_begin) == true)
+            plist->push_back(range_begin);
+        p1 = range_begin - 1 + 6 - 1;
+        p2 = p1 + 2;       
+    } else if (((range_begin) % 6) == 0) {
+        if (is_prime(range_begin + 1) == true)
+            plist->push_back(range_begin + 1);
+        p1 = range_begin + 6 - 1;
+        p2 = p1 + 2;
+    } else {
+        uint8_t rem = range_begin % 6;
+        p1 = range_begin - rem + 6 - 1;
+        p2 = p1 + 2;
+    }
+        
+    while (p2 <= range_end) {
+        if (is_prime(p1) == true)
+            plist->push_back(p1);
+        if (is_prime(p2) == true)
+            plist->push_back(p2);
+        p1 += 6;
+        p2 = p1 + 2;
     }
 
-    while (i < range_end) {
-        if (i + 1 > range_end)
-            break;
-        if (is_prime(i + 1) == true)
-            plist->push_back(i + 1);
-
-        if (i + 5 > range_end)
-            break;
-        if (is_prime(i + 5) == true)
-            plist->push_back(i + 5);
-
-        i += 6;
-    }
+    if ((p1 <= range_end) && (is_prime(p1) == true))
+        plist->push_back(p1);
 }
 
 /*
