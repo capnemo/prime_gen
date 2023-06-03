@@ -31,7 +31,7 @@ def miller_rabin_test(num):
     
 if (len(sys.argv) != 2):
     print("Usage " + sys.argv[0] + " <number>")
-    print("Prints all primes upto 'number'")
+    print("Prints all primes upto 10^'number'")
     os._exit(os.EX_OK)
 
 limit = pow(10, int(sys.argv[1]));
