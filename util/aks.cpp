@@ -36,6 +36,10 @@ int main(int argc, char *argv[])
         test_single_input(t_num);
 }
 
+/*******************************************************
+  Generates all primes upto inp
+  IN: inp: limit
+********************************************************
 void generate_list(uint64_t inp)
 {
     std::cout << "2\n3\n5\n";
@@ -52,6 +56,10 @@ void generate_list(uint64_t inp)
     }
 }
 
+/*******************************************************
+  Tests if inp is a prime or not.
+  IN: inp number to be tested.
+********************************************************
 void test_single_input(uint64_t inp)
 {
     if (test_number(inp) == true)
@@ -60,6 +68,12 @@ void test_single_input(uint64_t inp)
         std::cout << "not a prime" << std::endl;
 }
 
+/*******************************************************
+  Tests if inp is a prime or not by generating bionomial 
+  coefficients/
+  IN: inp: number to be tested
+  OUT: bool, if the number is prime or not.
+********************************************************
 bool test_number(uint64_t num)
 {
     bool is_prime = true;
@@ -74,6 +88,13 @@ bool test_number(uint64_t num)
     return is_prime;
 }
 
+/*******************************************************
+  Reduces the fraction and determines if the number 
+  perfectly divides the bionomial coefficient.
+  IN: numtor First and last of the numerators
+  IN: den_end: last of the denominators
+  OUT: bool, if the coefficient is reduced or not.
+********************************************************
 bool reduce(pair_64& numtor, uint64_t den_end)
 {
     uint64_t st = numtor.first;
@@ -97,6 +118,10 @@ bool reduce(pair_64& numtor, uint64_t den_end)
     return (!num_pair_vec[num_pair_vec.size() - 1].second);
 }
 
+/*******************************************************
+Usage message
+IN prog_name: name of the program.
+********************************************************
 void usage(const char* prog_name)
 {
     std::cout << std::string(prog_name) + " [-l] <number>" << std::endl;
