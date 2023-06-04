@@ -37,6 +37,8 @@ if (len(sys.argv) != 2):
 limit = pow(10, int(sys.argv[1]));
 limit = limit//6 + 1
 
+print("2")
+print("3")
 for n in range(1,limit):
     m = n*6
     if (miller_rabin_test(m - 1) == True):
