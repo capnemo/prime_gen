@@ -9,21 +9,37 @@ using pair_64 = std::pair<uint64_t, uint64_t>;
 using pair_64_bl = std::pair<uint64_t, bool>;
 using pair_vec = std::vector<pair_64_bl>;
 
-bool get_combinations(uint64_t num, uint64_t r);
 bool reduce(pair_64& numtor, uint64_t den_end);
 bool test_number(uint64_t num);
+void test_single_input(uint64_t inp);
+void generate_list(uint64_t inp);
+void usage(const char* prog_name);
 
-#if 0
 int main(int argc, char *argv[])
 {
-    if (argc != 2) {
-        std::cout << "error" << std::endl;
+    if ((argc != 2) && (argc != 3)) {
+        usage(argv[0]);
         return -1;
     }
 
+    uint64_t t_num = std::strtoll(argv[argc - 1], nullptr, 10);
+    if (argc == 3)  {
+        if (std::string(argv[1]) == "-l") {
+            generate_list(t_num);
+        } else {
+            usage(argv[0]);
+            return -1;
+        }
+    }
+
+    if (argc == 2)
+        test_single_input(t_num);
+}
+
+void generate_list(uint64_t inp)
+{
     std::cout << "2\n3\n5\n";
-    uint64_t lim = std::strtoll(argv[1], nullptr, 10);
-    for (uint64_t i = 6 ; i < lim; i += 6) {
+    for (uint64_t i = 6 ; i < inp; i += 6) {
         uint64_t m = i - 1;
         uint64_t n = i + 1;
         if (m % 5 != 0) 
@@ -36,16 +52,9 @@ int main(int argc, char *argv[])
     }
 }
 
-#endif
-int main(int argc, char *argv[])
+void test_single_input(uint64_t inp)
 {
-    if (argc != 2) {
-        std::cout << "error" << std::endl;
-        return -1;
-    }
-
-    uint64_t t_num = std::strtoll(argv[1], nullptr, 10);
-    if (test_number(t_num) == true)
+    if (test_number(inp) == true)
         std::cout << "prime" << std::endl;
     else
         std::cout << "not a prime" << std::endl;
@@ -54,9 +63,10 @@ int main(int argc, char *argv[])
 bool test_number(uint64_t num)
 {
     bool is_prime = true;
-    uint64_t lim = (num + 2)/2;
-    for (int i = 1; i <= lim; i++) { //start with 2.
-        if (get_combinations(num, i) == false)  {
+    uint64_t lim = (num + 1)/2;
+    for (int i = 2; i <= lim; i++) { 
+        pair_64 d = pair_64(num - 1 + 1, num);
+        if (reduce(d, i) == false)  {
             is_prime = false;
             break;
         }
@@ -64,33 +74,6 @@ bool test_number(uint64_t num)
     return is_prime;
 }
 
-#if 0
-bool test_number(uint64_t num)
-{
-    bool is_prime = true;
-    uint64_t lim = (num + 2)/2;
-    for (int i = 1; i <= lim; i++) {
-        pair_64 combi_numtor(i + 1, num);
-        if (reduce(combi_numtor, i) == false)  {
-            is_prime = false;
-            break;
-        }
-    }
-    return is_prime;
-}
-#endif
-
-bool get_combinations(uint64_t num, uint64_t r)
-{
-    uint64_t k = num - r;
-    if (k >= r)  {
-        pair_64 combis(k + 1, num);
-        return reduce(combis, r);
-    } else  {
-        pair_64 combis(r + 1, num);
-        return reduce(combis, k);
-    }
-}
 bool reduce(pair_64& numtor, uint64_t den_end)
 {
     uint64_t st = numtor.first;
@@ -103,7 +86,7 @@ bool reduce(pair_64& numtor, uint64_t den_end)
         uint64_t t = (rem == 0) ? 0:(den - rem);
         while (t < num_pair_vec.size()) {
             if (num_pair_vec[t].second == false) {
-                //num_pair_vec[t].first = num_pair_vec[t].first / den;
+                num_pair_vec[t].first = num_pair_vec[t].first / den;
                 num_pair_vec[t].second = true;
                 break;
             } else 
@@ -112,4 +95,12 @@ bool reduce(pair_64& numtor, uint64_t den_end)
     }
    
     return (!num_pair_vec[num_pair_vec.size() - 1].second);
+}
+
+void usage(const char* prog_name)
+{
+    std::cout << std::string(prog_name) + " [-l] <number>" << std::endl;
+    std::cout << "if '-l' is the first argument, generates primes upto ";
+    std::cout << "the given number" << std::endl;
+    std::cout << "Otherwise tests the given number for primality" << std::endl;
 }
