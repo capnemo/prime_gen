@@ -3,6 +3,7 @@
 #include <set>
 #include <algorithm>
 #include <climits>
+#include <cstdint>
 
 using vec_64 = std::vector<uint64_t>;
 using pair_64 = std::pair<uint64_t, uint64_t>;
