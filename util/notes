@@ -1,6 +1,7 @@
 miller-rabin.py has a few false positives as follows (tested upto 10000)
 2047 3277 4033 4681 8321
 None of the above are Carmichael numbers
+Miller Rabin will not work 64 bit C++. It may work on arbit precision library
 For AKS, this number has to be reduced.
 To calculate a bionomial coefficient, it is not necessary (wasteful) to 
 calculate it from scratch. It may be calculated from previous coefficients.
