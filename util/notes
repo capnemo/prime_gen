@@ -19,4 +19,17 @@ user	2m24.023s
 sys	0m0.000s
 chandra@falcon:util $ 
 
+chandra@falcon:util $ time ./new_aks 479909
+prime
+
+real	0m0.093s
+user	0m0.086s
+sys	0m0.007s
+chandra@falcon:util $ time ./new_aks 1000003
+prime
+
+real	0m0.198s
+user	0m0.194s
+sys	0m0.003s
+chandra@falcon:util $ 
 
