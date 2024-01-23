@@ -48,13 +48,12 @@ void generate_list(uint64_t inp)
     for (uint64_t i = 6 ; i < inp; i += 6) {
         uint64_t m = i - 1;
         uint64_t n = i + 1;
-        if (m % 5 != 0) 
-            if (test_number(m) == true)
-                std::cout << m << std::endl;
 
-        if (n % 5 != 0)
-            if (test_number(n) == true)
-                std::cout << n << std::endl;
+        if (test_number(m) == true)
+            std::cout << m << std::endl;
+
+        if (test_number(n) == true)
+            std::cout << n << std::endl;
     }
 }
 
@@ -71,44 +70,17 @@ void test_single_input(uint64_t inp)
 }
 
 /*******************************************************
-  Tests if inp is a prime or not by generating bionomial 
-  coefficients/
-  IN: inp: number to be tested
-  OUT: bool, if the number is prime or not.
+  Reduces the list of numerators by finding a suitable 
+  numerator to reduce
+  IN/OUT: ntor: list of numerators
+  IN: den: new denominator
 ********************************************************/
-#if 0
-bool test_number(uint64_t num)
-{
-    uint64_t lim = (num % 2 == 0) ? num/2:num/2 + 1;
-    uint64_t prod = 1;
-    for (int i = 1; i <= lim; i++) {
-        prod = (prod * (num - i + 1))/i;
-        //prod *= ((num - i + 1)/i);
-        //std::cout << prod << ":" << ((num - i + 1)) << ":" << i << std::endl;
-        //std::cout << prod % num << std::endl;
-        std::cout << prod << std::endl;
-        if (prod%num != 0) {
-            std::cout << "F," << prod << "," << num << "," << i << std::endl;
-            return false;
-        }
-    }
-    return true;
-}
-#endif
-
-void print_set(set_64i st)
-{
-    for (auto x:st)
-        std::cout << x << ",";
-    std::cout << std::endl;
-}
-
 void reduce_and_add(set_64i& ntor, uint64_t den)
 {
     set_64i::iterator lb = ntor.lower_bound(den);
-    uint64_t se = *(ntor.lower_bound(den));
+    uint64_t se = *lb;
     if (se == den) {
-        ntor.erase(se);
+        ntor.erase(lb);
         return;
     }
    
@@ -124,8 +96,18 @@ void reduce_and_add(set_64i& ntor, uint64_t den)
     }
 }
 
+/*******************************************************
+  Tests if inp is a prime or not by generating bionomial 
+  coefficients. If the number divides the all the 
+  coefficients perfectly, it is a prime.
+  IN: num: number to be tested
+  OUT: bool, if the number is prime or not.
+********************************************************/
 bool test_number(uint64_t num)
 {
+    if ((num % 5) == 0) 
+        return false;
+
     uint64_t lim = (num % 2 == 0) ? num/2:num/2 + 1;
     uint64_t prod = 1;
     set_64i nmtor, dntor;
@@ -143,35 +125,6 @@ bool test_number(uint64_t num)
             return false;
     }
     return true;
-}
-/*******************************************************
-  Reduces the fraction and determines if the number 
-  perfectly divides the bionomial coefficient.
-  IN: numtor First and last of the numerators
-  IN: den_end: last of the denominators
-  OUT: bool, if the coefficient is reduced or not.
-********************************************************/
-bool reduce(pair_64& numtor, uint64_t den_end)
-{
-    uint64_t st = numtor.first;
-    pair_vec num_pair_vec;
-    for (int i = numtor.first; i <= numtor.second; i++) 
-        num_pair_vec.push_back({st++, false});
-
-    for (uint64_t den = 2; den <= den_end; den++) {
-        uint64_t rem = numtor.first % den;
-        uint64_t t = (rem == 0) ? 0:(den - rem);
-        while (t < num_pair_vec.size()) {
-            if (num_pair_vec[t].second == false) {
-                num_pair_vec[t].first = num_pair_vec[t].first / den;
-                num_pair_vec[t].second = true;
-                break;
-            } else 
-                t += den;
-        }
-    }
-   
-    return (!num_pair_vec[num_pair_vec.size() - 1].second);
 }
 
 /*******************************************************
