@@ -1,3 +1,6 @@
 miller-rabin.py will print prime numbers up to a given limit
 aks will test a number for primality or print prime numbers up to a given limit
 new_aks.cpp is an optimized version of aks.cpp
+For Pollard's rho see notes.
+To be explored: Ullam's spiral.
+
