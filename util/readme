@@ -4,5 +4,9 @@ new_aks.cpp is an optimized version of aks.cpp
 For Pollard's rho see notes.
 To be explored: Ullam's spiral.
 The sequence sqrt(24n + 1) contains all primes except 2 and 3
-
+The following code will produce the same sequence as (6k +- 1)
+for i in range(1,200):
+    s = math.sqrt(24 * i + 1)
+    if (s == int(s)):
+        print(s)
 
