@@ -1,3 +1,4 @@
 a) prime_gen should take in a number and return if the number is a prime or not.
 b) 2 and 3 should be removed from prime_seeds. A prior attempt resulted in errors (false positives with e = 9)
 c) The exponent argument should be handled in a single function.
+d) PCLMULQDQ For carryless multiplication
