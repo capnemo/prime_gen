@@ -35,3 +35,12 @@ chandra@falcon:util $
 
 
 To be explored Ullam's spiral.
+
+util/no_div/six_primes.cpp
+Uses multiplication to eliminate all multiples of primes.
+
+util/no_div/prime_cycles.cpp
+Uses cycles (derived empirically) to eliminate multiples.
+
+util/no_div/prime_cycles.cpp
+Uses cycles to eliminate multiples. Slightly better performance than prime_cycles.
