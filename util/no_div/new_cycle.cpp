@@ -1,6 +1,5 @@
 /*
-
-This program exploits 2 cycles to identify primes.
+This program uses 2 cycles to identify primes.
 n is the number. 
 n6 is the nearest multiple of 6. p is +-1. 
 n6 = n + p.
@@ -12,40 +11,33 @@ The cycle is 6(n - n6/6) + p
 Cycle 2:
 n * 6 + n -- Multiple of n.
 
+chandra@falcon:no_div $ time ./new_cycle 1000000 > 1m.out
 
-chandra@falcon:new_cycles $ g++ -ggdb -Ofast new_cycle.cpp -o new_cycle
-chandra@falcon:new_cycles $ time ./new_cycle 1000000 > 1m.out 
+real	0m0.059s
+user	0m0.026s
+sys	0m0.033s
+chandra@falcon:no_div $ time ./new_cycle 10000000 > 10m.out
 
-real	0m0.060s
-user	0m0.019s
-sys	0m0.041s
-chandra@falcon:new_cycles $ time ./new_cycle 1000000 > 1m.out ^C
-chandra@falcon:new_cycles $ diff 1m.out  ../1m.out 
-chandra@falcon:new_cycles $ time ./new_cycle 10000000 > 10m.out 
+real	0m0.486s
+user	0m0.155s
+sys	0m0.327s
+chandra@falcon:no_div $ time ./new_cycle 100000000 > 100m.out
 
-real	0m0.489s
-user	0m0.165s
-sys	0m0.320s
-chandra@falcon:new_cycles $ diff 10m.out  ../10m.out 
-chandra@falcon:new_cycles $ time ./new_cycle 100000000 > 100m.out 
+real	0m3.930s
+user	0m1.349s
+sys	0m2.558s
+chandra@falcon:no_div $ time ./new_cycle 1000000000 > 1b.out
 
-real	0m3.911s
-user	0m1.712s
-sys	0m2.177s
-chandra@falcon:new_cycles $ time ./new_cycle 1000000000 > 1b.out 
+real	0m35.001s
+user	0m12.030s
+sys	0m22.851s
+chandra@falcon:no_div $ time ./new_cycle 10000000000 > 10b.out
 
-real	0m35.044s
-user	0m11.100s
-sys	0m23.826s
-chandra@falcon:new_cycles $ time ./new_cycle 1000000000 > 10b.out 
-
-real	0m36.136s
-user	0m14.916s
-sys	0m21.082s
-chandra@falcon:new_cycles $ diff 1b.out  ../1b.out 
+real	5m18.143s
+user	1m48.038s
+sys	3m29.143s
+chandra@falcon:no_div $ 
 */
-
-
 
 #include <iostream>
 #include <cstdint>
@@ -149,10 +141,6 @@ void calculate_sixes(vec64& sixes, u64 last_num)
         sixes.push_back(current_six + 1);
         current_six += 6;
     }
-
-    vec64::iterator sx_it = std::remove_if(sixes.begin(), sixes.end(), 
-                                           [](u64 n) { return n == 0;});
-    sixes.erase(sx_it, sixes.end());
 }
 
 u64 get_nearest_six(u64 num)
@@ -167,5 +155,10 @@ int get_six_difference(u64 num)
 
 void print_list(vec64 v)
 {
-    for_each(v.begin(), v.end(), [](auto& n){std::cout << n << std::endl;});
+    auto f = [](const auto& n) {
+        if (n != 0) 
+            std::cout << n << std::endl;
+    };
+
+    for_each(v.begin(), v.end(),f);
 }
