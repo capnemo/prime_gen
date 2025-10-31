@@ -5,37 +5,10 @@ Miller Rabin will not work 64 bit C++. It may work on arbit precision library
 For AKS, this number has to be reduced.
 To calculate a bionomial coefficient, it is not necessary (wasteful) to 
 calculate it from scratch. It may be calculated from previous coefficients.
-chandra@falcon:util $ time ./aks 479909
-prime
-
-real	0m33.231s
-user	0m33.218s
-sys	0m0.004s
-chandra@falcon:util $ time ./aks 1000003
-prime
-
-real	2m24.097s
-user	2m24.023s
-sys	0m0.000s
-chandra@falcon:util $ 
-
-chandra@falcon:util $ time ./new_aks 479909
-prime
-
-real	0m0.093s
-user	0m0.086s
-sys	0m0.007s
-chandra@falcon:util $ time ./new_aks 1000003
-prime
-
-real	0m0.198s
-user	0m0.194s
-sys	0m0.003s
-chandra@falcon:util $ 
-
 
 To be explored Ullam's spiral.
 
+No division alternatives.
 util/no_div/six_primes.cpp
 Uses multiplication to eliminate all multiples of primes.
 
