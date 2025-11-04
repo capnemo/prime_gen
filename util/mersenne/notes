@@ -1,0 +1,3 @@
+
+Code to generate Mersenne primes.
+Very slow. Candidate for avx512 bignum
