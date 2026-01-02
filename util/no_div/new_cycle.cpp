@@ -1,8 +1,8 @@
 /*
 This program uses 2 cycles to identify primes.
 n is the number. 
-n6 is the nearest multiple of 6. p is +-1. 
-n6 = n + p.
+nx6 is the nearest multiple of 6. p is +-1. 
+nx6 = n + p.
 Cycle 1:
 The cycle is 6(n - n6/6) + p
 => 6(n - (n + p)/6) + p
@@ -10,7 +10,10 @@ The cycle is 6(n - n6/6) + p
 => 5n -- Multiple of n.
 Cycle 2:
 n * 6 + n -- Multiple of n.
+=> 7n
 
+The above needs elaboration. Look good, but is not useful.
+-------------------------------------------------------------
 chandra@falcon:no_div $ time ./new_cycle 1000000 > 1m.out
 
 real	0m0.059s
