@@ -1,0 +1,19 @@
+chandra@falcon:no_div $ make
+gcc -o3 neo_cycle.c -o neo_cycle -lm
+chandra@falcon:no_div $ time ./neo_cycle -x 10 > n10
+
+real	0m51.942s
+user	0m47.558s
+sys	0m3.624s
+chandra@falcon:no_div $ time ./neo_cycle -x 9 > n9
+
+real	0m5.210s
+user	0m4.651s
+sys	0m0.446s
+chandra@falcon:no_div $ time ./neo_cycle -x 8 > n8
+
+real	0m0.535s
+user	0m0.478s
+sys	0m0.046s
+chandra@falcon:no_div $ 
+

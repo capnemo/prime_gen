@@ -59,13 +59,13 @@ u64* allocate_and_fill(u64 sz)
 
 void print_array(u64* arr, u64 sz)
 {
-    for(int i = 0;i < sz; i++) 
+    for(u64 i = 0;i < sz; i++) 
         printf("%lu\n", arr[i]);
 }
 
 void print_primes(u64* arr, u64 sz)
 {
-    for(int i = 0;i < sz; i++) 
+    for(u64 i = 0;i < sz; i++) 
         if (arr[i] != 0)
             printf("%lu\n", arr[i]);
 }
@@ -108,7 +108,7 @@ void filter_multiples(u64 in, u64 lst_sz, u64* mlist)
 
 u64 get_list_length(u64 input_size)
 {
-    int p = (input_size % 6 == 5) ? 1:0;
+    u64 p = (input_size % 6 == 5) ? 1:0;
     return (input_size + p)/3;
 }
 
@@ -151,9 +151,7 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    fprintf(stderr, "%lu\n", prime_list[list_sz - 1]);
     remove_non_primes(prime_list, list_sz);
-    fprintf(stderr, "%lu\n", prime_list[list_sz - 1]);
     print_primes(prime_list, list_sz);
     return 0;
 }
