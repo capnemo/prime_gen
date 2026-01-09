@@ -1,6 +1,13 @@
 # Fast prime number generator.
 
 prime_gen is a utility to generate primes. It is based on the axiom that for any prime p > 4, p = 6k+1 or 6k-1.
+It uses trial division. For any number n, if n % d != 0 for all 5 < d < sqrt(n), then n is a prime.
+Running times
+All primes under 10^10
+real	4m55.524s
+user	157m5.744s
+sys	0m3.356s
+
 ## Build the software.
 git clone the project to your machine. Run make from the root directory.
 ## Prerequisites
