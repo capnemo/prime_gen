@@ -20,7 +20,7 @@ Therefore, the multiples are
 .
 .
 
-To access an element in the array, the formula is
+To access an element in the array,
 if x is the index, the value in the location pointed to by x is
 3(x + 2) - 1 - (x % 2)
 For ex, 7 ==> 25
