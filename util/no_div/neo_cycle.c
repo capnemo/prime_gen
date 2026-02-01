@@ -5,6 +5,8 @@ The main data structure is an array of size input_size/3. All members of the
 array are in ascending order and are of the form 6k +/- 1 for all 
 k < input_size/3.
 
+Everything below STILL does not make any sense.
+------------------------------------------------
 There are two cycles of multiples of a given prime.
 if p is a prime then the closest multiples are p + p6/6 and p - p6/6
 where p6 is the closest multiple of 6. Both cycles repeat themselves at
@@ -77,12 +79,6 @@ void filter_multiples(u64 in, u64 lst_sz, u64* mlist)
         return;
 
     u64 f6 = (in % 2 == 0) ? (m + 1)/6:(m - 1)/6;
-/*
-    For an analytical proof, treat the following assignments as equations.
-    w1 and w2 are the locations of multiples of m.
-    m has a relationship with f6.
-    f6 is a multiple of 6
-*/
     u64 w1,w2;
     if (f6 * 6 > m) {
         w1 = 2 * (m - f6) - 1;
