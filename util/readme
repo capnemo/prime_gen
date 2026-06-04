@@ -10,3 +10,15 @@ for i in range(1,200):
     if (s == int(s)):
         print(s)
 
+From Mathematica@X
+On this day, June 4, 1730, the young Leonhard Euler made a significant observation in number theory. 
+
+He proved that if n has an odd prime divisor, then the number 2ⁿ + 1 is composite, meaning it cannot be prime. This elegant result revealed that numbers of the form 2ⁿ + 1 can only possibly be prime when n itself is a power of 2, providing a quick and powerful way to identify composite candidates without full factorization.
+
+This discovery had direct implications for Fermat numbers, which are defined as Fₖ = 2^(2ᵏ) + 1. Pierre de Fermat had boldly conjectured that all such numbers are prime, but Euler’s criterion showed the limitations of that belief.
+
+Just two years later, in 1732, Euler famously factored the fifth Fermat number F₅ = 2³² + 1 into 641 × 6,700,417, dealing a major blow to Fermat’s conjecture and opening a new chapter in the study of these intriguing numbers.
+
+Working in St. Petersburg during this period, Euler was deeply engaged with classical problems from Fermat and others. Around the same time, he also referenced ideas related to the four-square theorem in his correspondence.
+
+This 1730 observation stands as a quiet yet foundational moment in mathematics, illustrating how one clear insight can illuminate entire families of numbers and influence research for centuries. Even today, Fermat numbers continue to fascinate mathematicians, with only five known primes and the question of whether any more exist remaining open.
