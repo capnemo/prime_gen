@@ -17,3 +17,8 @@ Uses cycles (derived empirically) to eliminate multiples.
 
 util/no_div/prime_cycles.cpp
 Uses cycles to eliminate multiples. Slightly better performance than prime_cycles.
+
+
+Every prime greater than 5 must lie in one of only 8 positions in each block of 30.
+{1,7,11,13,17,23,29}
+ie p mod 40 E {1,7,11,13,17,23,29}
